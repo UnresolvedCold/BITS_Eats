@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageActivity"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/manage_Option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="A or C"/>
+
+    <EditText
+        android:id="@+id/manage_Day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Day in nmbers Sunday = 1 ,1-7"/>
+
+    <EditText
+        android:id="@+id/manage_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name Of Item"/>
+    <EditText
+        android:id="@+id/manage_Price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price Of Item"/>
+    <EditText
+        android:id="@+id/manage_isAvailable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="isItAvailable (true/false)"/>
+    <Button
+        android:id="@+id/manage_Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"/>
+
+</LinearLayout>

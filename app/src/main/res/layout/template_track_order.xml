@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/template_track"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/template_track_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="status of order"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/template_track_order_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mode"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/template_track_order_token"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="token no."
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="0dp"
+        android:id="@+id/template_track_order_Items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/template_track_items">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/template_track_order_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cost"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+
+</LinearLayout>

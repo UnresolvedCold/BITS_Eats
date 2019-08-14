@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/button_background">
+
+    <include
+        android:id="@+id/main_appbar"
+        layout="@layout/appbar">
+    </include>
+
+    <ProgressBar
+        android:id="@+id/main_Progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:translationZ="1dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/main_TitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_appbar"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:gravity="top">
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/main_OptionsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/main_TitleContainer"
+        android:layout_marginTop="0dp"
+        android:gravity="top|center"
+        android:orientation="vertical">
+
+    <!--com.schwifty.bits_delivery.UTILS.ClockView
+        android:layout_width="250dp"
+        android:layout_height="250dp" /-->
+
+
+    <TextView
+        android:id="@+id/Chooseanoption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose an Option to Continue"
+        android:textColor="@color/colorPrimaryTitle"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/main_option_NC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background_2"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:text="Night Canteen"
+            android:textColor="@color/colorPrimaryTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/main_option_FJ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background_2"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="Food Joint"
+            android:textColor="@color/colorPrimaryTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/main_option_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background_2"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="A Mess"
+            android:textColor="@color/colorPrimaryTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/main_option_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background_2"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="C Mess"
+            android:textColor="@color/colorPrimaryTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+        android:id="@+id/main_option_d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_background_2"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="D Mess"
+        android:textColor="@color/colorPrimaryTitle"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/main_option_RC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background_2"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="Red Chillis"
+            android:textColor="@color/colorPrimaryTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/main_option_FK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background_2"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingStart="35dp"
+            android:paddingEnd="35dp"
+            android:text="Food King"
+            android:textColor="@color/colorPrimaryTitle"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp">
+
+        <Button
+            android:id="@+id/main_trackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:background="@drawable/button_track_order"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="TrackOrder"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

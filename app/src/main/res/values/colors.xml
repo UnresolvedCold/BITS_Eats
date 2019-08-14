@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--color name="colorPrimary">#008577</color-->
+    <!--color name="colorPrimaryDark">#00574B</color-->
+    <color name="colorPrimary">#636363</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorPrimaryTitle">#000000</color>
+    <color name="colorPrimaryDarkButton">#013F0E</color>
+    <color name="colorAccent">#797979</color>
+
+    <color name="titleColor">#008577</color>
+    <color name="backgroundColor">#F1EDED</color>
+    <color name="colorPrimaryDarkest">#002C16</color>
+
+    <!-- I've hard coded the color for this-->
+    <!--Payment Page Receipt Order confirm -->
+    <color name="colorOrderConfirmed">#00E01E</color>
+    <color name="foodColor">#f4a460</color>
+
+    <color name="mainback">#A082D8</color>
+
+    <color name="buttonColor">#0023FF</color>
+
+    <color name="colorSelectedBackground">#3F51B5</color>
+    <color name="colorSelectedBoundry">#3F51B5</color>
+    <color name="colorSearchBack">#272727</color>
+    <color name="WHITE">#FFFFFF</color>
+    <color name="GREY">#999999</color>
+
+
+</resources>

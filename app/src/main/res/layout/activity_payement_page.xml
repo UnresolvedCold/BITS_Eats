@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentPage"
+    android:background="@drawable/button_background"
+    android:orientation="vertical"
+    android:overScrollMode="always">
+
+       <include
+        android:id="@+id/pay_appbar"
+        layout="@layout/appbar"></include>
+
+
+    <ScrollView
+        android:id="@+id/pay_Receipt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="RECEIPT"
+                />
+
+            <TextView
+                android:id="@+id/pay_Receipt_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:padding="2dp"
+                android:textColor="@color/colorPrimaryTitle"
+                android:textColorHint="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/pay_Receipt_Mob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:padding="2dp"
+                android:textColor="@color/colorPrimaryTitle"
+                android:textColorHint="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center_horizontal">
+
+               <TextView
+                   android:id="@+id/pay_Receipt_Hostel"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="5dp"
+                   android:gravity="center"
+                   android:padding="2dp"
+                   android:textColor="@color/colorPrimaryTitle"
+                   android:textColorHint="@color/colorAccent"
+                   android:textSize="18sp"
+                   android:textStyle="bold"
+                   />
+               <TextView
+                   android:id="@+id/pay_Receipt_Room"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="5dp"
+                   android:gravity="center"
+                   android:padding="2dp"
+                   android:textColor="@color/colorPrimaryTitle"
+                   android:textColorHint="@color/colorAccent"
+                   android:textSize="18sp"
+                   android:textStyle="bold"
+                   />
+
+           </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pay_Receipt_summary_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pay_OrderConfirm"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do not close this page unless it says Payment Successful"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FF0000"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/pay_Details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="DETAILS"
+                    />
+
+                <EditText
+                    android:id="@+id/pay_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:hint="Enter your name"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryTitle"
+                    android:textColorHint="@color/colorAccent"
+                    android:background="@drawable/edit_texts"
+                    />
+
+                    <EditText
+                        android:id="@+id/pay_Mob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/edit_texts"
+                        android:gravity="center"
+                        android:hint="Enter your mobile no."
+                        android:inputType="number|textPersonName"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryTitle"
+                        android:textColorHint="@color/colorAccent" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Choose One Option"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                     android:gravity="center_horizontal"
+                     android:layout_margin="5dp">
+
+                     <RadioGroup
+                         android:id="@+id/pay_Options"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="8dp"
+                         android:layout_marginLeft="8dp"
+                         android:layout_marginTop="8dp"
+                         android:layout_marginEnd="8dp"
+                         android:layout_marginRight="8dp"
+                         android:gravity="center_horizontal"
+                         android:orientation="horizontal"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent">
+
+
+                         <RadioButton
+                             android:id="@+id/pay_options_eatHere"
+                             android:layout_width="0dp"
+                             android:layout_weight="1"
+                             android:gravity="center"
+                             android:layout_height="wrap_content"
+                             android:background="@drawable/radio_flat_selector"
+                             android:button="@android:color/transparent"
+                             android:paddingTop="7dp"
+                             android:paddingBottom="7dp"
+                             android:layout_marginEnd="5dp"
+                             android:checked="false"
+                             android:text="Dine-in"
+                             android:textStyle="bold"
+                             android:textSize="20sp"
+                             android:textColor="@color/radio_flat_text_selector" />
+
+                         <RadioButton
+                             android:id="@+id/pay_options_takeAway"
+                             android:gravity="center"
+                             android:layout_width="0dp"
+                             android:layout_weight="1"
+                             android:layout_height="wrap_content"
+                             android:background="@drawable/radio_flat_selector"
+                             android:button="@android:color/transparent"
+                             android:paddingTop="7dp"
+                             android:paddingBottom="7dp"
+                             android:layout_marginEnd="5dp"
+                             android:text="Pick-up"
+                             android:textStyle="bold"
+                             android:textSize="20sp"
+                             android:textColor="@color/radio_flat_text_selector" />
+
+                         <RadioButton
+                             android:id="@+id/pay_options_Delivery"
+                             android:gravity="center"
+                             android:layout_width="0dp"
+                             android:layout_weight="1"
+                             android:layout_height="wrap_content"
+                             android:background="@drawable/radio_flat_selector"
+                             android:button="@android:color/transparent"
+                             android:paddingTop="7dp"
+                             android:paddingBottom="7dp"
+                             android:text="Delivery"
+                             android:textStyle="bold"
+                             android:textSize="20sp"
+                             android:textColor="@color/radio_flat_text_selector" />
+
+
+                     </RadioGroup>
+
+                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pay_Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address : "
+                        android:padding="2dp"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+                    <Spinner
+                        android:id="@+id/pay_Hostel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/edit_texts"
+                        android:entries="@array/Hostels">
+                    </Spinner>
+
+                    <EditText
+                        android:gravity="center"
+                        android:id="@+id/payment_page_RoomNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:hint="Room No."
+                        android:minWidth="50dp"
+                        android:inputType="number"
+                        android:background="@drawable/edit_texts"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pay_NPeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No. of people : "
+                        android:padding="2dp"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+
+                    <EditText
+                        android:id="@+id/pay_NPeople_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="1"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:padding="2dp"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:gravity="center_horizontal"
+                        android:background="@drawable/edit_texts"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/payment_page_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginTop="15dp"
+                    android:text="SUMMARY"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/pay_summary_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/pay_Cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@color/backgroundColor"
+                    android:gravity="center"
+                    android:minWidth="250dp"
+                    android:padding="5dp"
+                    android:text="Total amount :"
+                    android:textColor="@color/colorPrimaryTitle"
+                    android:textColorHint="@color/colorPrimaryTitle"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+
+
+                <!-- refactor here-->
+
+                <EditText
+                    android:id="@+id/pay_Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:textColor="@color/background"
+                    android:textColorHint="@color/colorPrimary"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/pay_Phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:hint="Phone No."
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColor="@color/background"
+                    android:textColorHint="@color/colorPrimary"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/pay_PayBtn_InstaMojo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pay InstaMojo"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    android:padding="15dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/background"
+                    android:textColorHint="@color/colorPrimary"
+                    android:visibility="gone"/>
+
+
+                <Button
+                    android:id="@+id/pay_PayBtn_Delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pay"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    android:padding="15dp"
+                    android:background="@drawable/menu_items"
+                    android:textColor="@color/background"
+                    android:textColorHint="@color/colorPrimary"
+                    />
+
+
+                    <LinearLayout
+                        android:id="@+id/pay_PayBtn_NonDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <Button
+                            android:id="@+id/pay_PayBtn_TakeAway"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pay"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:layout_margin="10dp"
+                            android:padding="15dp"
+                            android:background="@drawable/menu_items"
+                            android:textColor="@color/background"
+                            android:textColorHint="@color/colorPrimary"
+                            />
+
+                        <Button
+                            android:id="@+id/pay_PayBtn_EatHere"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pay"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:layout_margin="10dp"
+                            android:padding="15dp"
+                            android:background="@drawable/menu_items"
+                            android:textColor="@color/background"
+                            android:textColorHint="@color/colorPrimary"
+                            />
+                    </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
