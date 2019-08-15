@@ -34,13 +34,13 @@ import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int CURR_VERSION = 11;
+    private static int CURR_VERSION = 12;
 
     private long transitionTime = 300;
     Animation anim;
 
 
-    private View messA,messC,messD,redC,fk,NC,FJ;
+    private View messA,messC,messD,fk,NC,FJ,INS;
     int option_selected=0;//0 = none selected, 1 = NC 2 = FJ
     private View mainContainer;
     private ProgressBar progressBar;
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
         messA = (View) findViewById(R.id.main_option_a);
         messC = (View) findViewById(R.id.main_option_c);
         messD = (View) findViewById(R.id.main_option_d);
-        redC = (View) findViewById(R.id.main_option_RC);
         fk = (View) findViewById(R.id.main_option_FK);
         NC = (View) findViewById(R.id.main_option_NC);
         FJ = (View) findViewById(R.id.main_option_FJ);
+        INS = (View) findViewById(R.id.main_option_INS);
 
         TrackOrder = findViewById(R.id.main_trackButton);
 
@@ -273,37 +273,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
 
-                        //Red Chillis
-                        if (!dataSnapshot.child("RC").getValue().equals("opened")
-                                && dataSnapshot.child("isDevA").getValue().toString().equals("true"))
-                        {
-                          //  if ((currTimeInt2 == 23 || currTimeInt2 == 0 || currTimeInt2 == 1))
-                            {
-                                redC.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-
-                                        intent.putExtra("messOption", "RC");
-                                        startActivity(intent);
-                                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                                    }
-                                });
-                            }
-
-                        } else
-                        {
-                           redC.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                    Toast.makeText(MainActivity.this, "Sorry, Red Chillis is not open yet", Toast.LENGTH_LONG).show();
-
-                                }
-                            });
-
-                        }
-
                         //Food King
                         if (dataSnapshot.child("FK").getValue().equals("opened")
                                 && dataSnapshot.child("isDevA").getValue().toString().equals("true"))
@@ -329,6 +298,36 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(View view) {
 
                                     Toast.makeText(MainActivity.this, "Sorry, Food King is not open yet", Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+                        }
+
+                        //Ice n Spice
+                        if (dataSnapshot.child("INS").getValue().equals("opened")
+                                && dataSnapshot.child("isDevA").getValue().toString().equals("true"))
+                        {
+                            //  if ((currTimeInt2 == 23 || currTimeInt2 == 0 || currTimeInt2 == 1))
+                            {
+                                INS.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+
+                                        intent.putExtra("messOption", "INS");
+                                        startActivity(intent);
+                                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                                    }
+                                });
+                            }
+
+                        } else
+                        {
+                            INS.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    Toast.makeText(MainActivity.this, "Sorry, Ice n Spice is not open yet", Toast.LENGTH_LONG).show();
 
                                 }
                             });
@@ -378,15 +377,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    redC.setOnClickListener(new View.OnClickListener() {
+                    fk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(MainActivity.this, "Please update your app to proceed", Toast.LENGTH_SHORT).show();
 
                         }
                     });
-
-                    fk.setOnClickListener(new View.OnClickListener() {
+                    INS.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(MainActivity.this, "Please update your app to proceed", Toast.LENGTH_SHORT).show();
@@ -446,14 +444,14 @@ public class MainActivity extends AppCompatActivity {
             messC.setVisibility(View.GONE);
             messA.setVisibility(View.GONE);
             messD.setVisibility(View.GONE);
-            redC.setVisibility(View.GONE);
             fk.setVisibility(View.GONE);
+            INS.setVisibility(View.GONE);
 
             messC.clearAnimation();
             messD.clearAnimation();
             messA.clearAnimation();
-            redC.clearAnimation();
             fk.clearAnimation();
+            INS.clearAnimation();
 
             Runnable r = new Runnable() {
                 @Override
@@ -509,8 +507,8 @@ public class MainActivity extends AppCompatActivity {
             FJ.clearAnimation();
             NC.clearAnimation();
 
-            redC.setVisibility(View.GONE);
             fk.setVisibility(View.GONE);
+            INS.setVisibility(View.GONE);
 
             Runnable r = new Runnable() {
                 @Override
@@ -562,11 +560,11 @@ public class MainActivity extends AppCompatActivity {
                     chooseOption.setText("Choose a Food Joint to Order Food");
 
                     chooseOption.startAnimation(anim);
-                    redC.startAnimation(anim);
                     fk.startAnimation(anim);
+                    INS.startAnimation(anim);
 
-                    redC.setVisibility(View.VISIBLE);
                     fk.setVisibility(View.VISIBLE);
+                    INS.setVisibility(View.VISIBLE);
 
                 }
             };

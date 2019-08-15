@@ -127,6 +127,8 @@ public class PaymentPage extends AppCompatActivity {
             messCDelivery="closed", messCNonDelivery="closed",
             messDDelivery="closed", messDNonDelivery="closed",
             RCEatHere="closed",RCTakeAway="closed",
+            INSEatHere="closed",INSTakeAway="closed",
+            INSDelivery="closed",INSNonDelivery="closed",
             fkEatHere = "closed",fkTakeAway="closed";
 
     private View vPayBtn_Delivery,vPayBtn_TakeAway, vPayBtn_EatHere, vPayBtn_NonDelivery;
@@ -143,6 +145,7 @@ public class PaymentPage extends AppCompatActivity {
     String currTime;
     int currTimeInt;
 
+    int del_type=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -258,8 +261,6 @@ public class PaymentPage extends AppCompatActivity {
         generateToken();
 
 
-
-
     }
 
     private void generateToken()
@@ -292,7 +293,7 @@ public class PaymentPage extends AppCompatActivity {
         //Update Delivery cost
         float totalCost=0f;
 
-        deliveryCost = getDeliveryCost(hostel,updateScheme);
+        deliveryCost = getDeliveryCost(hostel,updateScheme,del_type);
 
         totalCost = Float.parseFloat(_TotalCost)+deliveryCost;
 
@@ -370,7 +371,6 @@ public class PaymentPage extends AppCompatActivity {
 
     }
 
-
     private void UpdateReceiptItemsView(String itmsStr,LinearLayout layout ,Boolean isHidden,String deliveryCost,String totalCost,int scheme) {
 
         InflateItemsView("Item", "Qty", "Price", "Pkg", layout,scheme);
@@ -414,6 +414,10 @@ public class PaymentPage extends AppCompatActivity {
                 messDNonDelivery = dataSnapshot.child("MessDNonDelivery").getValue().toString();
                 RCTakeAway=dataSnapshot.child("RCTakeAway").getValue().toString();
                 RCEatHere=dataSnapshot.child("RCEatHere").getValue().toString();
+                INSTakeAway=dataSnapshot.child("INSTakeAway").getValue().toString();
+                INSEatHere=dataSnapshot.child("INSEatHere").getValue().toString();
+                INSDelivery=dataSnapshot.child("INSDelivery").getValue().toString();
+                INSNonDelivery = dataSnapshot.child("INSNonDelivery").getValue().toString();
                 fkEatHere=dataSnapshot.child("FKEatHere").getValue().toString();
                 fkTakeAway = dataSnapshot.child("FKTakeAway").getValue().toString();
 
@@ -528,6 +532,76 @@ public class PaymentPage extends AppCompatActivity {
                     if(!RCTakeAway.equals("opened"))
                     {
                             vPayBtn_TakeAway.setVisibility(GONE);
+                    }
+                    else
+                    {
+                        if(TakeAway.isChecked())
+                        {
+                            vPayBtn_EatHere.setVisibility(GONE);
+                            vPayBtn_TakeAway.setVisibility(VISIBLE);
+                        }
+                    }
+
+                }
+
+                if(mess.equals("INS"))
+                {
+                    del_type = 1;
+
+                    if(Delivery.isChecked()) {
+                        if (!INSDelivery.equals("opened")) {
+                            Delivery.setOnClickListener(serviceNotAvailable);
+                            vPayBtn_Delivery.setVisibility(GONE);
+                        } else {
+
+                            if(getInitialPrice(false) >= 100.0) {
+
+                                Delivery.setEnabled(true);
+                                vPayBtn_Delivery.setVisibility(VISIBLE);
+                            }
+
+                            else
+                            {
+                                Delivery.setOnClickListener(deliveryNotAvailable);
+                                vPayBtn_Delivery.setVisibility(GONE);
+                            }
+                        }
+                    }
+
+                    if (!INSNonDelivery.equals("opened")) {
+                        EatHere.setOnClickListener(serviceNotAvailable);
+                        TakeAway.setOnClickListener(serviceNotAvailable);
+                        vPayBtn_NonDelivery.setVisibility(GONE);
+                    }
+                    else
+                    {
+                        if(EatHere.isChecked())
+                            EatHere.setEnabled(true);
+                        if(TakeAway.isChecked())
+                            TakeAway.setEnabled(true);
+                        vPayBtn_NonDelivery.setVisibility(VISIBLE);
+                    }
+
+/*
+                    Delivery.setVisibility(GONE);
+
+                    if(!INSEatHere.equals("opened"))
+                    {
+                        vPayBtn_EatHere.setVisibility(GONE);
+                    }
+                    else
+                    {
+                        if(EatHere.isChecked())
+                        {
+                            vPayBtn_EatHere.setVisibility(VISIBLE);
+                            vPayBtn_TakeAway.setVisibility(GONE);
+                        }
+                    }
+*/
+
+                    if(!INSTakeAway.equals("opened"))
+                    {
+                        vPayBtn_TakeAway.setVisibility(GONE);
                     }
                     else
                     {
@@ -726,39 +800,45 @@ public class PaymentPage extends AppCompatActivity {
     }
 
 
-    private float getDeliveryCost(String hostel, Boolean updateScheme) {
+    private float getDeliveryCost(String hostel, Boolean updateScheme,int type) {
 
 
-        String[] B_1 = new String[]{"AH 2","AH 3","AH 7","AH 8","CH 3","CH 4","CH 5","CH 7"};
-        String[] B_2 = new String[]{"AH 1","AH 4","AH 5","CH 1","CH 2","CH 6"};
-        String[] B_3 = new String[]{"AH 6","AH 9"};
+        //For Mess
+        if(type == 0) {
+            String[] B_1 = new String[]{"AH 2", "AH 3", "AH 7", "AH 8", "CH 3", "CH 4", "CH 5", "CH 7"};
+            String[] B_2 = new String[]{"AH 1", "AH 4", "AH 5", "CH 1", "CH 2", "CH 6"};
+            String[] B_3 = new String[]{"AH 6", "AH 9"};
 
-        float price_B_1=10.0f;
-        float price_B_2=13.0f;
-        float price_B_3=15.0f;
+            float price_B_1 = 10.0f;
+            float price_B_2 = 13.0f;
+            float price_B_3 = 15.0f;
 
-        for (String aB_1 : B_1) {
-            if(aB_1.equals(hostel))
-            {
-                PERCENT = 0.1f;
-                return price_B_1;
+            for (String aB_1 : B_1) {
+                if (aB_1.equals(hostel)) {
+                    PERCENT = 0.1f;
+                    return price_B_1;
+                }
+            }
+
+            for (String aB_2 : B_2) {
+                if (aB_2.equals(hostel)) {
+                    PERCENT = 0.12f;
+                    return price_B_2;
+                }
+            }
+
+            for (String aB_3 : B_3) {
+                if (aB_3.equals(hostel)) {
+                    PERCENT = 0.13f;
+                    return price_B_3;
+                }
             }
         }
 
-        for(String aB_2 : B_2){
-            if(aB_2.equals(hostel))
-            {
-                PERCENT = 0.12f;
-                return price_B_2;
-            }
-        }
-
-        for(String aB_3 : B_3){
-            if(aB_3.equals(hostel))
-            {
-                PERCENT = 0.13f;
-                return price_B_3;
-            }
+        //for INS
+        if(type == 1)
+        {
+            return 10.0f;
         }
 
         return 0.0f;
@@ -1029,7 +1109,7 @@ public class PaymentPage extends AppCompatActivity {
             float totalCost;
 
 
-            deliveryCost = getDeliveryCost(adapterView.getItemAtPosition(i).toString(), true);
+            deliveryCost = getDeliveryCost(adapterView.getItemAtPosition(i).toString(), true,del_type);
             deliveryCost+=getCrossDeliveryCost(adapterView.getItemAtPosition(i).toString());
 
 
@@ -1155,6 +1235,46 @@ public class PaymentPage extends AppCompatActivity {
                     }
                 }
 
+                if (mess.equals("INS"))
+                {
+                    del_type = 1;
+
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Variables")
+                            .child("Payment")
+                            .child("INS")
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                {
+                                    PAY_ID = dataSnapshot.getValue().toString();
+                                    findViewById(R.id.pay_NPeople).setVisibility(GONE);
+
+                                    if (!INSEatHere.equals("opened"))
+                                    {
+                                        Log.d("ConfigCheck","RC is closed");
+                                        vPayBtn_EatHere.setVisibility(GONE);
+                                        EatHere.setOnClickListener(serviceNotAvailable);
+                                    }
+                                    else
+                                    {
+                                        Log.d("ConfigCheck","RC is opened");
+                                        vPayBtn_EatHere.setVisibility(VISIBLE);
+                                        EatHere.setOnClickListener(null);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                }
+
+
                 if (mess.equals("FK"))
                 {
                     findViewById(R.id.pay_NPeople).setVisibility(GONE);
@@ -1242,6 +1362,44 @@ public class PaymentPage extends AppCompatActivity {
                     }
                 }
                 else
+                if (mess.equals("INS"))
+                {
+                    del_type = 1;
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("Variables")
+                            .child("Payment")
+                            .child("INS")
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                {
+                                    PAY_ID = dataSnapshot.getValue().toString();
+                                    findViewById(R.id.pay_NPeople).setVisibility(GONE);
+
+                                    if (!INSTakeAway.equals("opened"))
+                                    {
+                                        Log.d("ConfigCheck","RC is closed");
+                                        vPayBtn_TakeAway.setVisibility(GONE);
+                                        TakeAway.setOnClickListener(serviceNotAvailable);
+                                    }
+                                    else
+                                    {
+                                        Log.d("ConfigCheck","RC is opened");
+                                        vPayBtn_TakeAway.setVisibility(VISIBLE);
+                                        TakeAway.setOnClickListener(null);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                }
+                else
                 if(mess.equals("FK")) {
                     findViewById(R.id.pay_NPeople).setVisibility(GONE);
                     if (!fkTakeAway.equals("opened"))
@@ -1321,6 +1479,38 @@ public class PaymentPage extends AppCompatActivity {
                         vPayBtn_Delivery.setVisibility(VISIBLE);
                         Delivery.setOnClickListener(null);
                     }
+                }
+                else
+                if(mess.equals("INS")) {
+
+                    del_type = 1;
+
+                    if (!INSDelivery.equals("opened")) {
+                        Delivery.setOnClickListener(serviceNotAvailable);
+                        vPayBtn_Delivery.setVisibility(GONE);
+                    } else {
+
+                        if(getInitialPrice(false)>= 100.0) {
+
+                            Delivery.setEnabled(true);
+                            vPayBtn_Delivery.setVisibility(VISIBLE);
+                        }
+
+                        else
+                        {
+                            Delivery.setOnClickListener(deliveryNotAvailable);
+                            vPayBtn_Delivery.setVisibility(GONE);
+                        }
+                    }
+
+
+                  /*  if (!INSDelivery.equals("opened")) {
+                        vPayBtn_Delivery.setVisibility(GONE);
+                        Delivery.setOnClickListener(serviceNotAvailable);
+                    } else {
+                        vPayBtn_Delivery.setVisibility(VISIBLE);
+                        Delivery.setOnClickListener(null);
+                    }*/
                 }
 
                 vPayBtn_EatHere.setVisibility(GONE);
@@ -1619,6 +1809,13 @@ public class PaymentPage extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Toast.makeText(PaymentPage.this, "This service is not available at the moment", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener deliveryNotAvailable = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(PaymentPage.this, "Delivery is not available for purchases below \u20B9 100", Toast.LENGTH_SHORT).show();
         }
     };
 
