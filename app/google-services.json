@@ -21,6 +21,10 @@
             "package_name": "com.schwifty.bits_delivery",
             "certificate_hash": "3270e336781b31267fb57cdc198cef6869d787bb"
           }
+        },
+        {
+          "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -37,8 +41,7 @@
             }
           ]
         }
-      },
-      "admob_app_id": "ca-app-pub-8704649037925552~9701300205"
+      }
     },
     {
       "client_info": {
@@ -55,6 +58,10 @@
             "package_name": "com.schwifty.bits_delivery_bot",
             "certificate_hash": "3270e336781b31267fb57cdc198cef6869d787bb"
           }
+        },
+        {
+          "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -88,6 +95,113 @@
             "package_name": "com.schwifty.bits_delivery_boys",
             "certificate_hash": "3270e336781b31267fb57cdc198cef6869d787bb"
           }
+        },
+        {
+          "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1ZTp6BpPuh3EFKnCJiCaIOIylc_83OLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314020875141:android:130988c63138ed99",
+        "android_client_info": {
+          "package_name": "com.schwifty.bits_delivery_boys_formess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1ZTp6BpPuh3EFKnCJiCaIOIylc_83OLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314020875141:android:9fd89dbe4f963542",
+        "android_client_info": {
+          "package_name": "com.schwifty.bitseats_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314020875141-rm3csei756n3e480keqnci38aqco605q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schwifty.bitseats_admin",
+            "certificate_hash": "3270e336781b31267fb57cdc198cef6869d787bb"
+          }
+        },
+        {
+          "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1ZTp6BpPuh3EFKnCJiCaIOIylc_83OLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314020875141:android:68a4c929ce46a20b",
+        "android_client_info": {
+          "package_name": "com.schwifty.nondeliverybitseatsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314020875141-v96drgc5026b98vu2d1muff2ihfdn819.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schwifty.nondeliverybitseatsapp",
+            "certificate_hash": "3270e336781b31267fb57cdc198cef6869d787bb"
+          }
+        },
+        {
+          "client_id": "314020875141-kqar5almojf07t4jkeqd2p6oohehqdjr.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [

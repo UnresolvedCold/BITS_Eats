@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:gravity="center"
         android:id="@+id/appbar"
@@ -22,5 +22,5 @@
         android:textSize="30sp"
         android:textStyle="bold"/>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 

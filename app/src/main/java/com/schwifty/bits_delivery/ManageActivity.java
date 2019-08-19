@@ -1,14 +1,7 @@
 package com.schwifty.bits_delivery;
 
-import android.support.annotation.NonNull;
-import android.app.Activity;
-import instamojo.library.InstapayListener;
-import instamojo.library.InstamojoPay;
-import instamojo.library.Config;
-import org.json.JSONObject;
-import org.json.JSONException;
-import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;

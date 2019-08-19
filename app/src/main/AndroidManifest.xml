@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.schwifty.bits_delivery">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,14 +14,16 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".Login_Register" />
 
         <service android:name=".firebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".TrackOrder"></activity>
+        <activity android:name=".TrackOrder" />
         <activity
             android:name=".TrackItem"
             android:parentActivityName=".MainActivity" />
