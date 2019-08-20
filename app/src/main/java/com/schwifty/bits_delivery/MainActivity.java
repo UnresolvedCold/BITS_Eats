@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andremion.floatingnavigationview.FloatingNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        startActivity(new Intent(this,Login_Register.class));
 
         anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadein);
 
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, delay);
 
+        NavigationalView((FloatingNavigationView)findViewById(R.id.floating_navigation_view));
 
         TrackOrder.setOnClickListener(trackListner);
 
@@ -567,6 +568,51 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+
+    private void NavigationalView(final FloatingNavigationView mFloatingNavigationView) {
+
+        mFloatingNavigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mFloatingNavigationView!=null)mFloatingNavigationView.open();
+            }
+        });
+        mFloatingNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull android.view.MenuItem menuItem)
+            {
+                // Snackbar.make((View) mFloatingNavigationView.getParent(), menuItem.getTitle() + " Selected!", Snackbar.LENGTH_LONG).show();
+                mFloatingNavigationView.close();
+
+                String Option = menuItem.getTitle().toString();
+
+                if(Option.equals("Track Order"))
+                {
+                    Intent intent = new Intent(MainActivity.this,TrackOrder.class);
+                    startActivity(intent);
+                }
+
+                if(Option.equals("Skip Mess"))
+                {
+                    startActivity(new Intent(MainActivity.this,Login_Register.class));
+                }
+
+                if(Option.equals("About"))
+                {
+
+                }
+                if(Option.equals("Contact"))
+                {
+
+                }
+
+
+                return true;
+            }
+
+        });
+    }
 
 
 }

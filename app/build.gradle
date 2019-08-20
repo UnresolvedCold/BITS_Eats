@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.schwifty.bits_delivery"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 12
         versionName "2.2.0"
@@ -68,4 +68,6 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
+    implementation 'com.github.andremion:floatingnavigationview:1.1.1'
 }

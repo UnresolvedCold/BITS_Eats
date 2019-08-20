@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Login_Register"
+    android:background="@drawable/button_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please login with your BITS ID to continue"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/edit_texts"
+            android:text="BITS ID :"/>
+        <EditText
+            android:id="@+id/BITSID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="2017B4A30712G"
+            android:minWidth="200dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textColorHint="#999999"
+            android:background="@drawable/edit_texts"
+          />
+
+    </LinearLayout>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        
+      />
+
+</LinearLayout>

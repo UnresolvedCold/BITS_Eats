@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -21,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login_Register extends AppCompatActivity {
 
@@ -35,7 +39,7 @@ public class Login_Register extends AppCompatActivity {
 
     //And also a Firebase Auth object
     FirebaseAuth mAuth;
-
+    EditText e;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,7 @@ public class Login_Register extends AppCompatActivity {
 
         //first we intialized the FirebaseAuth object
         mAuth = FirebaseAuth.getInstance();
-
+        e = findViewById(R.id.BITSID);
         //Then we need a GoogleSignInOptions object
         //And we need to build it as below
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -58,10 +62,22 @@ public class Login_Register extends AppCompatActivity {
         //Now we will attach a click listener to the sign_in_button
         //and inside onClick() method we are calling the signIn() method that will open
         //google sign in intent
+
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+
+                if(!TextUtils.isEmpty(e.getText().toString())
+                    && e.getText().toString().trim().length()>10
+                )
+                {
+                    signIn();
+                }
+                else
+                {
+                    Toast.makeText(Login_Register.this, "Please enter your BITS Id", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -86,7 +102,6 @@ public class Login_Register extends AppCompatActivity {
 
         //if the requestCode is the Google Sign In code that we defined at starting
         if (requestCode == RC_SIGN_IN) {
-
             //Getting the GoogleSignIn Task
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -106,6 +121,17 @@ public class Login_Register extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId() + acct.getEmail());
 
+        FirebaseDatabase.getInstance().getReference().child("Users")
+                .child(acct.getEmail().replace('.','_'))
+                .child("Id")
+                .setValue(e.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+
+            }
+        });
+
         //getting the auth credential
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 
@@ -117,6 +143,8 @@ public class Login_Register extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+
 
                             Toast.makeText(Login_Register.this, "User Signed In", Toast.LENGTH_SHORT).show();
 
@@ -137,6 +165,7 @@ public class Login_Register extends AppCompatActivity {
                         // ...
                     }
                 });
+
 
     }
 
