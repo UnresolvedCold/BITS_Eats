@@ -189,7 +189,7 @@
 
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -223,7 +223,8 @@
         app:layout_anchorGravity="top|end"
         android:backgroundTint="#0023FF"
         app:headerLayout="@layout/navigation_view_header"
-        app:menu="@menu/menu_navigational_view" />
+        app:menu="@menu/menu_navigational_view"
+        android:visibility="gone"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

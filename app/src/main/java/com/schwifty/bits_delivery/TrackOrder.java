@@ -47,7 +47,6 @@ public class TrackOrder extends AppCompatActivity {
 
     LayoutInflater inflater;
 
-    private static Boolean shouldntAdBeShown = false;
     private static int rnd;
 
     @SuppressLint("HardwareIds")
@@ -55,9 +54,6 @@ public class TrackOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_order);
-
-        if(!shouldntAdBeShown)
-            InitAd();
 
 
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
@@ -211,54 +207,6 @@ public class TrackOrder extends AppCompatActivity {
 
         linearLayout.addView(view);
         return view;
-    }
-
-
-    //Ads
-    InterstitialAd mInterstitialAd;
-
-    private void InitAd() {
-
-        MobileAds.initialize(this, Ads.AppId);
-
-        mInterstitialAd = new InterstitialAd(this);
-
-        mInterstitialAd.setAdUnitId(Ads.AdId);
-
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        mInterstitialAd.setAdListener(new AdListener()
-        {
-            @Override
-            public void onAdLoaded() {
-                 //Code to be executed when an ad finishes loading.
-
-                 ShowAd();
-            }
-
-            @Override
-            public void onAdClosed() {
-
-                Random rand = new Random();
-                rnd = rand.nextInt(50);
-
-                Log.d("Random_",rnd+"");
-
-                if(rnd%2 == 0)
-                {
-                    shouldntAdBeShown =true;
-                }
-
-            }
-        });
-
-    }
-
-    private void ShowAd() {
-
-        if(mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
     }
 
     //Model of Order
