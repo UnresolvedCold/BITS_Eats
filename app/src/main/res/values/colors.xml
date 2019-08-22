@@ -27,5 +27,11 @@
     <color name="WHITE">#FFFFFF</color>
     <color name="GREY">#999999</color>
 
+    <color name="colorBar">#F5F5F5</color>
+    <color name="colorBackGround">#E4E4E4</color>
+    <color name="colorTextMain">#0C0C0C</color>
+    <color name="colorTextBack">#7C7C7C</color>
+    <color name="colorIcons">#636363</color>
+
 
 </resources>

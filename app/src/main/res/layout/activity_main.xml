@@ -218,13 +218,23 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@id/champ"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        app:layout_anchorGravity="top|end"
-        android:backgroundTint="#0023FF"
+        app:layout_anchorGravity="top|start"
+        android:backgroundTint="#F1EDED"
+        android:tint="@color/black"
         app:headerLayout="@layout/navigation_view_header"
         app:menu="@menu/menu_navigational_view"
-        android:visibility="gone"/>
+
+        android:background="#FFFFFF"
+        app:elevation="0dp"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:borderWidth="0dp"
+
+        android:visibility="visible"
+
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

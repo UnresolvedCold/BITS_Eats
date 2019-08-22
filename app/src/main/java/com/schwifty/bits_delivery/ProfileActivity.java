@@ -4,17 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,8 +47,10 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
 
     DatePickerDialog datePickerDialog;
 
-    View vLogout,vMessSkip;
-    TextView vMessSkipStatus;
+    View vLogout,vHome;
+    Button vMessSkip;
+    int i=0;
+    //TextView vMessSkipStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +63,10 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
         textName = findViewById(R.id.textViewName);
         textEmail = findViewById(R.id.textViewEmail);
         vLogout = findViewById(R.id.Logout);
+        vHome = findViewById(R.id.Home);
         vMessSkip =findViewById(R.id.mess_skip);
-        vMessSkipStatus = findViewById(R.id.status_mess_skip);
+        //vMessSkipStatus = findViewById(R.id.status_mess_skip);
+
 
 
         FirebaseUser user = mAuth.getCurrentUser();
@@ -91,7 +102,17 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 mAuth.signOut();
                 vLogout.setEnabled(false);
+
                 Intent i = new Intent(ProfileActivity.this,Login_Register.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
+        });
+
+        vHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProfileActivity.this,MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
@@ -143,15 +164,101 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                         if(dataSnapshot.getChildrenCount()>=2)
                         {
 
-                            vMessSkip.setEnabled(false);
-                            vMessSkip.setVisibility(View.GONE);
-                            vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
-                            vMessSkipStatus.setVisibility(View.VISIBLE);
+                            vMessSkip.setEnabled(true);
+                            //vMessSkip.setVisibility(View.GONE);
+                           /* vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
+                            vMessSkipStatus.setVisibility(View.VISIBLE);*/
+                           // vMessSkip.setText("You've already skipped the mess 2 times this month");
+
+                            vMessSkip.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Toast.makeText(ProfileActivity.this, "You've already skipped the mess twice this month", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                             Toast.makeText(ProfileActivity.this, "Not allowed more than twice", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            int i=0;
+                            vMessSkip.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    //dialog to skip mess
+
+                                    vMessSkip.setEnabled(false);
+                                    Calendar calendar = Calendar.getInstance();
+                                    Date today = calendar.getTime();
+
+                                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+                                    Date tomorrow = calendar.getTime();
+                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                                    String todayAsString = dateFormat.format(today);
+                                    final String tomorrowAsString = dateFormat.format(tomorrow);
+
+                                    final Dialog dialog = new Dialog(ProfileActivity.this);
+                                    dialog.setContentView(R.layout.dialog_confirm_mess_skip);
+                                    dialog.setTitle("Enter the passcode");
+                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    dialog.setCanceledOnTouchOutside(false);
+
+                                    View v_ok,v_cancel;
+                                    TextView vMessege;
+
+                                    v_ok = dialog.findViewById(R.id.confirm_corr);
+                                    v_cancel = dialog.findViewById(R.id.confirm_cancel);
+                                    vMessege = dialog.findViewById(R.id.confirm_text);
+
+                                    vMessege.setText("Are you sure to skip the mess tomorrow("+ tomorrowAsString +") ?");
+
+                                    v_ok.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+
+                                            SetSkipMessInFirebase(Integer.parseInt(tomorrowAsString.split("-")[0]),
+                                                    Integer.parseInt(tomorrowAsString.split("-")[1]),
+                                                    Integer.parseInt(tomorrowAsString.split("-")[2])
+                                            );
+
+                                            dialog.dismiss();
+
+                                        }
+                                    });
+
+                                    v_cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            vMessSkip.setEnabled(true);
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                                    dialog.show();
+
+                                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                                    {
+                                        datePickerDialog = new DatePickerDialog(ProfileActivity.this,ProfileActivity.this, mYear, mMonth, mDay);
+
+                                        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()+(long)24*60*60*1000);
+
+                                        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() +
+                                                (long)(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)-mDay)*24*60*60*1000);
+
+                                        datePickerDialog.show();
+                                    }
+                                    else
+                                    {
+
+                                    }*/
+                                }
+                            });
+
+                            vMessSkip.setText("Skip Mess Tomorrow");
+
+                            i=0;
                             for(DataSnapshot snapshot : dataSnapshot.getChildren())
                             {
                                 String days = snapshot.child("day").getValue().toString();
@@ -165,20 +272,21 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                             if(i>0)
                             {
                                 vMessSkip.setEnabled(false);
-                                vMessSkip.setVisibility(View.GONE);
-                                vMessSkipStatus.setText("You're skipping mess tomorrow");
-                                vMessSkipStatus.setVisibility(View.VISIBLE);
+                                vMessSkip.setText("You're skipping tomorrow");
+                               // vMessSkip.setVisibility(View.GONE);
+                               // vMessSkipStatus.setText("You're skipping mess tomorrow");
+                               // vMessSkipStatus.setVisibility(View.VISIBLE);
                             }
                             else {
                                 vMessSkip.setEnabled(true);
+                                vMessSkip.setText("Skip Mess Tomorrow");
                                 vMessSkip.setVisibility(View.VISIBLE);
-                                vMessSkipStatus.setText("You can skip "+(2-i)+" time");
+                               /* vMessSkipStatus.setText("You can skip "+(2-i)+" time");
                                 if(i>1)vMessSkipStatus.append("s");
-                                vMessSkipStatus.setVisibility(View.VISIBLE);
+                                vMessSkipStatus.setVisibility(View.VISIBLE);*/
                             }
 
                         }
-
 
                     }
 
@@ -187,44 +295,6 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
 
                     }
                 });
-
-        vMessSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                vMessSkip.setEnabled(false);
-                Calendar calendar = Calendar.getInstance();
-                Date today = calendar.getTime();
-
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-                Date tomorrow = calendar.getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-                String todayAsString = dateFormat.format(today);
-                String tomorrowAsString = dateFormat.format(tomorrow);
-
-                SetSkipMessInFirebase(Integer.parseInt(tomorrowAsString.split("-")[0]),
-                        Integer.parseInt(tomorrowAsString.split("-")[1]),
-                        Integer.parseInt(tomorrowAsString.split("-")[2])
-                );
-
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                {
-                    datePickerDialog = new DatePickerDialog(ProfileActivity.this,ProfileActivity.this, mYear, mMonth, mDay);
-
-                    datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()+(long)24*60*60*1000);
-
-                    datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() +
-                            (long)(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)-mDay)*24*60*60*1000);
-
-                    datePickerDialog.show();
-                }
-                else
-                {
-
-                }*/
-            }
-        });
     }
 
     @Override

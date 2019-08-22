@@ -59,6 +59,13 @@ public class Login_Register extends AppCompatActivity {
         //Then we will get the GoogleSignInClient object from GoogleSignIn class
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                });
+
         //Now we will attach a click listener to the sign_in_button
         //and inside onClick() method we are calling the signIn() method that will open
         //google sign in intent
@@ -92,6 +99,7 @@ public class Login_Register extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             finish();
             startActivity(new Intent(this, ProfileActivity.class));
+            overridePendingTransition(R.anim.fadein,R.anim.fadeout);
         }
     }
 
@@ -107,6 +115,7 @@ public class Login_Register extends AppCompatActivity {
             try {
                 //Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                overridePendingTransition(R.anim.fadein,R.anim.fadeout);;
 
                 //authenticating with firebase
                 firebaseAuthWithGoogle(account);
@@ -151,6 +160,7 @@ public class Login_Register extends AppCompatActivity {
                             if (mAuth.getCurrentUser() != null) {
                                 finish();
                                 startActivity(new Intent(Login_Register.this, ProfileActivity.class));
+                                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
                             }
 
 
@@ -177,5 +187,6 @@ public class Login_Register extends AppCompatActivity {
 
         //starting the activity for result
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
     }
 }
