@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
     View vLogout,vHome;
     Button vMessSkip;
     int i=0;
+    int flag =0;
     //TextView vMessSkipStatus;
 
     @Override
@@ -164,20 +165,39 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                         if(dataSnapshot.getChildrenCount()>=2)
                         {
 
-                            vMessSkip.setEnabled(true);
-                            //vMessSkip.setVisibility(View.GONE);
-                           /* vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
-                            vMessSkipStatus.setVisibility(View.VISIBLE);*/
-                           // vMessSkip.setText("You've already skipped the mess 2 times this month");
+                            if(flag>0)
+                            {
+                                vMessSkip.setEnabled(true);
+                                //vMessSkip.setVisibility(View.GONE);
+                               /* vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
+                                vMessSkipStatus.setVisibility(View.VISIBLE);*/
+                                // vMessSkip.setText("You've already skipped the mess 2 times this month");
 
-                            vMessSkip.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Toast.makeText(ProfileActivity.this, "You've already skipped the mess twice this month", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                vMessSkip.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(ProfileActivity.this, "YOur request has been recorded", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                Toast.makeText(ProfileActivity.this, "Your request has been recorded", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                vMessSkip.setEnabled(true);
+                                //vMessSkip.setVisibility(View.GONE);
+                               /* vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
+                                vMessSkipStatus.setVisibility(View.VISIBLE);*/
+                                // vMessSkip.setText("You've already skipped the mess 2 times this month");
 
-                            Toast.makeText(ProfileActivity.this, "Not allowed more than twice", Toast.LENGTH_SHORT).show();
+                                vMessSkip.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(ProfileActivity.this, "You've already skipped the mess twice this month", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                //Toast.makeText(ProfileActivity.this, "Not allowed more than twice", Toast.LENGTH_SHORT).show();
+                                flag=0;
+                            }
                         }
                         else
                         {
@@ -218,6 +238,7 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                                         public void onClick(View view)
                                         {
 
+                                            flag++;
                                             SetSkipMessInFirebase(Integer.parseInt(tomorrowAsString.split("-")[0]),
                                                     Integer.parseInt(tomorrowAsString.split("-")[1]),
                                                     Integer.parseInt(tomorrowAsString.split("-")[2])
