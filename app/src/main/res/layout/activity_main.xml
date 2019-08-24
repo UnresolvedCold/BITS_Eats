@@ -232,7 +232,7 @@
         android:scaleType="fitCenter"
         app:borderWidth="0dp"
 
-        android:visibility="visible"
+        android:visibility="gone"
 
         />
 
