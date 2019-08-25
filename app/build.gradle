@@ -69,4 +69,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
     implementation 'com.github.andremion:floatingnavigationview:1.1.1'
+
+    implementation 'com.koushikdutta.ion:ion:2.+'
 }

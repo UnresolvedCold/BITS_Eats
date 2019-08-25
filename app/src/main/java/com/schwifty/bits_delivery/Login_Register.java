@@ -39,7 +39,7 @@ public class Login_Register extends AppCompatActivity {
 
     //And also a Firebase Auth object
     FirebaseAuth mAuth;
-    EditText e;
+   // EditText e;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class Login_Register extends AppCompatActivity {
 
         //first we intialized the FirebaseAuth object
         mAuth = FirebaseAuth.getInstance();
-        e = findViewById(R.id.BITSID);
+      //  e = findViewById(R.id.BITSID);
         //Then we need a GoogleSignInOptions object
         //And we need to build it as below
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -74,16 +74,16 @@ public class Login_Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(!TextUtils.isEmpty(e.getText().toString())
+               /* if(!TextUtils.isEmpty(e.getText().toString())
                     && e.getText().toString().trim().length()>10
                 )
-                {
+                {*/
                     signIn();
-                }
+               /* }
                 else
                 {
                     Toast.makeText(Login_Register.this, "Please enter your BITS Id", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
             }
         });
@@ -130,7 +130,7 @@ public class Login_Register extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId() + acct.getEmail());
 
-        FirebaseDatabase.getInstance().getReference().child("Users")
+       /* FirebaseDatabase.getInstance().getReference().child("Users")
                 .child(acct.getEmail().replace('.','_'))
                 .child("Id")
                 .setValue(e.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -139,7 +139,7 @@ public class Login_Register extends AppCompatActivity {
             {
 
             }
-        });
+        });*/
 
         //getting the auth credential
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);

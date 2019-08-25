@@ -29,6 +29,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
+import com.schwifty.bits_delivery.UTILS.Loader;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -127,6 +133,8 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final Loader l = new Loader("",R.layout.loading,ProfileActivity.this,false);
+                l.getDialog().show();
                 if(!dataSnapshot.hasChild("Name"))
                 {
                     userRef.child("Name").setValue(Name);
@@ -135,6 +143,21 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                 if(!dataSnapshot.hasChild("Email"))
                 {
                     userRef.child("Email").setValue(RawEmail);
+                }
+                if(!dataSnapshot.hasChild("Id"))
+                {
+                    Ion.with(ProfileActivity.this)
+                            .load("https://us-central1-bitsdelivery-6a7e4.cloudfunctions.net/getStudentDetails?flag=true&dest="+RawEmail)
+                            .asString()
+                            .withResponse()
+                            .setCallback(new FutureCallback<Response<String>>() {
+                                @Override
+                                public void onCompleted(Exception e, Response<String> result) {
+
+                                    l.getDialog().dismiss();
+                                }
+                            });
+
                 }
             }
 
