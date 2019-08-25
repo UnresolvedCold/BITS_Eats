@@ -11,29 +11,21 @@ import com.schwifty.bits_delivery.R;
 public class Loader
 {
 
-    private String title ="Enter the passcode";
-    private int content = R.layout.dialog_confirm_mess_skip;
-    private Activity activity;
-    private boolean onTouchOutside=true;
+    private Dialog dialog;
 
-    Loader(){}
-
-    public Loader(String title, int content, Activity activity, boolean onTouchOutside) {
-        this.title = title;
-        this.content = content;
-        this.activity = activity;
-        this.onTouchOutside = onTouchOutside;
-    }
-
-    public Dialog CreateLoader()
-    {
-        final Dialog dialog = new Dialog(activity);
+    public Loader(String title, int content, Activity activity, boolean cancelOnTouchOutside) {
+        dialog = new Dialog(activity);
         dialog.setContentView(content);
         dialog.setTitle(title);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setCanceledOnTouchOutside(onTouchOutside);
+        dialog.setCanceledOnTouchOutside(cancelOnTouchOutside);
+    }
 
+    public Dialog getDialog()
+    {
         return dialog;
     }
+
+
 
 }

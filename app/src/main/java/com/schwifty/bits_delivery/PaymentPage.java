@@ -2,6 +2,7 @@ package com.schwifty.bits_delivery;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +49,7 @@ import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.schwifty.bits_delivery.UTILS.JSONParser;
+import com.schwifty.bits_delivery.UTILS.Loader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -714,6 +716,8 @@ public class PaymentPage extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        final Loader _l = new Loader("",R.layout.loading,this,false);
+
         if (data != null) //Result from google API
         {
             Log.d("final_cold","Payment Response = "+data.getStringExtra("response"));
@@ -767,6 +771,8 @@ public class PaymentPage extends AppCompatActivity {
 
             // Toast.makeText(this, "Payment Not Successful", Toast.LENGTH_SHORT).show();
         }
+
+        _l.getDialog().dismiss();
 
     }
 
@@ -915,6 +921,9 @@ public class PaymentPage extends AppCompatActivity {
         UpdateReceiptItemsView(items,vr_ItemsDetails,false,
                 vr_DeliveryCost.getText().toString(), vr_TotalCost.getText().toString(),scheme);
 
+        final Loader l = new Loader("",R.layout.loading,this,false);
+        l.getDialog().show();
+
         Ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -926,13 +935,14 @@ public class PaymentPage extends AppCompatActivity {
                     vr_IsPaid.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorOrderConfirmed, null));
                     vr_IsPaid.setText("Payment Successful\n Order Confirmed\n"+
                             "You can now view your order on the track order page.");
+                    l.getDialog().dismiss();
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                l.getDialog().dismiss();
             }
         });
     }

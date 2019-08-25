@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.schwifty.bits_delivery.UTILS.Loader;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationalView((FloatingNavigationView)findViewById(R.id.floating_navigation_view));
 
         TrackOrder.setOnClickListener(trackListner);
+
+        final Loader l = new Loader("",R.layout.loading,this,false);
+        l.getDialog().show();
 
         variablesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -386,13 +390,15 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                l.getDialog().dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 Toast.makeText(MainActivity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
-
+                l.getDialog().dismiss();
             }
         });
 
