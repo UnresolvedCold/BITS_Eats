@@ -25,7 +25,6 @@ public class SelectedItems
     }
 
     public SelectedItems(String UID,String name, float price, int nItems,Boolean isPAckagable,float packingPrice) {
-        Log.d("SelectedItems","Constructor : packagingPrice : "+packingPrice);
         this.UID = UID;
         this.name=name;
         this.price = price;

@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
                 currTime2 =sdf.format(cal.getTime());
                 currTimeInt2 = Integer.parseInt(currTime2);
 
-                Log.d("merchant",currTimeInt2+"");
 
                 handler.postDelayed(this, delay);
             }
@@ -148,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
                     // Mess
                     if (dataSnapshot.hasChild("MessA") && dataSnapshot.hasChild("isDevA"))
                     {
-                        Log.d("hundred_4", dataSnapshot.child("MessA").getValue().toString());
-                        Log.d("hundred_4", dataSnapshot.child("isDevA").getValue().toString());
 
                         if (dataSnapshot.child("MessA").getValue().toString().equals("opened")
                                 && dataSnapshot.child("isDevA").getValue().toString().equals("true")) {

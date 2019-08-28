@@ -78,7 +78,6 @@ public class firebaseMessagingService extends FirebaseMessagingService
     @Override
     public void onNewToken(String token) {
 
-        Log.d("coldToken","Token : "+token);
 
         android_id=Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);

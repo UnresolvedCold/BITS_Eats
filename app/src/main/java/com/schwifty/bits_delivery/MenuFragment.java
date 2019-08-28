@@ -60,7 +60,6 @@ public class MenuFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View mainView= inflater.inflate(R.layout.fragment_menu, container, false);
 
-        Log.d("hundred","Entered Menu Fragment On Create ");
 
         parentActivity = (PlaceOrderActivity) getActivity();
 
@@ -164,14 +163,8 @@ public class MenuFragment extends Fragment {
                     @NonNull
                     @Override
                     public Items parseSnapshot(@NonNull DataSnapshot snapshot) {
-
-                        Log.d("hundred","Entered Adapter Options ");
-
                         if(snapshot.hasChild("Name"))
                         {
-
-                            Log.d("hundred","Entered Adapter's if ");
-
                             String name = snapshot.child("Name").getValue().toString();
                             String price = snapshot.child("Price").getValue().toString();
                             String isAvailable = snapshot.child("isAvailable").getValue().toString();
@@ -183,8 +176,6 @@ public class MenuFragment extends Fragment {
                         }
                         else
                         {
-                            Log.d("hundred","Entered Adapter's else ");
-
                             return new Items("loading","loading","loading","loading","loading","loading");
                         }
 
@@ -195,8 +186,6 @@ public class MenuFragment extends Fragment {
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Items, ItemHolder>(Adapter_Options) {
             @Override
             protected void onBindViewHolder(@NonNull final ItemHolder holder, int position, @NonNull final Items model) {
-
-                Log.d("hundred","Entered on Bind View Holder ");
 
                 holder.setAvailability(model.getIsAvailable());
                 holder.ShowSearch(model.getName(),value);
@@ -218,7 +207,6 @@ public class MenuFragment extends Fragment {
                                         model.getIsPackagable(),
                                         model.getPackingPrice()
                                 );
-                        Log.d("hundred_2",model.getIsPackagable()+"");
 
                         //get spinner count
                         AddToCart(currItem);
@@ -247,7 +235,6 @@ public class MenuFragment extends Fragment {
             @Override
             public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-                Log.d("hundred","Entered Create View Holder ");
 
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.template_menu_items,viewGroup,false);
                 return new ItemHolder(view);

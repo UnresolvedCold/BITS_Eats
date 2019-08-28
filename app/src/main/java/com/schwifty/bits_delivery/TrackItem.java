@@ -90,13 +90,9 @@ public class TrackItem extends AppCompatActivity {
                         int i =1;
                         while(dataSnapshot.hasChild("Order_"+i))
                         {
-
-                            Log.d("hundred","order_"+i);
                             String eUID=dataSnapshot.child("Order_"+i).child("UID").getValue().toString();
 
                             orderUIDList.add(eUID);
-
-                            Log.d("hundred",eUID);
 
                             i++;
                         }

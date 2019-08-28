@@ -123,7 +123,6 @@ public class SelectedItemsList
 
     public void GenerateLog()
     {
-        Log.d("hundred",""+getCount());
 
         Iterator<SelectedItems> i =list.iterator();
 
@@ -131,8 +130,6 @@ public class SelectedItemsList
         {
             SelectedItems iItm = i.next();
 
-            Log.d("hundred","Name = "+iItm.getName()+" Price = "+iItm.getPrice()
-                    +" Count = "+iItm.getnItems());
 
         }
 
@@ -221,7 +218,6 @@ public class SelectedItemsList
                 iCount++;
                 if(iCount >= size) {
 
-                        Log.d("hundred","f_items : "+ f_items);
 
                         intent.putExtra("items", intent_infoAboutItems);
                         intent.putExtra("TotalCost", "" + (list.GetTotalPrice()));

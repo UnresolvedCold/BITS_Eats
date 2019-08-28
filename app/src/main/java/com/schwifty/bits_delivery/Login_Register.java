@@ -128,7 +128,6 @@ public class Login_Register extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId() + acct.getEmail());
 
        /* FirebaseDatabase.getInstance().getReference().child("Users")
                 .child(acct.getEmail().replace('.','_'))
@@ -150,7 +149,6 @@ public class Login_Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
 

@@ -159,7 +159,6 @@ public class PaymentPage extends AppCompatActivity {
                     public void onSuccess(InstanceIdResult instanceIdResult) {
 
                         tokenId = instanceIdResult.getToken();
-                        Log.d("ColdTokenId",tokenId);
                     }
                 }
         );
@@ -244,7 +243,6 @@ public class PaymentPage extends AppCompatActivity {
                 currTime =sdf.format(cal.getTime());
                 currTimeInt = Integer.parseInt(currTime);
 
-                Log.d("merchant",currTimeInt+"");
 
                 handler.postDelayed(this, delay);
             }
@@ -320,7 +318,6 @@ public class PaymentPage extends AppCompatActivity {
 
         __FinalCost=TotalCost;
 
-        Log.d("coldmerchant","Delivery Cost"+deliveryCost+","+"PERCENT = "+PERCENT);
 
     }
 
@@ -374,7 +371,6 @@ public class PaymentPage extends AppCompatActivity {
 
         String[] indiv_data = itmsStr.split("=");
 
-        Log.d("god", indiv_data.toString());
 
         for (int i = 0; i < indiv_data.length; i++) {
             String[] collective = indiv_data[i].split("_");
@@ -720,11 +716,9 @@ public class PaymentPage extends AppCompatActivity {
 
         if (data != null) //Result from google API
         {
-            Log.d("final_cold","Payment Response = "+data.getStringExtra("response"));
 
             if (data.getStringExtra("response").toLowerCase().contains("SUCCESS".toLowerCase()))
             {
-                Log.d("GODISNOWHERE","Order Type"+OrderType+" rnd : "+rnd);
 
                 if(OrderType==1||OrderType==2)
                 {
@@ -767,7 +761,6 @@ public class PaymentPage extends AppCompatActivity {
         }
         else
         {
-            Log.d("final_cold","No data returned");
 
             // Toast.makeText(this, "Payment Not Successful", Toast.LENGTH_SHORT).show();
         }
@@ -957,7 +950,6 @@ public class PaymentPage extends AppCompatActivity {
     private void InitVariablesWithPkgPrice()
     {
         __InitialCost = TotalCost;
-        Log.d("merchant","Init __InitialCost : "+__InitialCost);
     }
 
 
@@ -1045,7 +1037,6 @@ public class PaymentPage extends AppCompatActivity {
             //paramMap.put( "EMAIL" , "coldboy1998@gmail.com");   // no need
             //paramMap.put( "MOBILE_NO" , "7004219327");  // no need
 
-            Log.d("hundred",CHECKSUMHASH);
 
             paramMap.put("CHECKSUMHASH" ,CHECKSUMHASH);
 
@@ -1058,37 +1049,30 @@ public class PaymentPage extends AppCompatActivity {
             Service.startPaymentTransaction(PaymentPage.this, true, true, new PaytmPaymentTransactionCallback() {
                 /*Call Backs*/
                 public void someUIErrorOccurred(String inErrorMessage) {
-                    Log.d("hundred", "UIERROR");
                     Toast.makeText(PaymentPage.this, "1", Toast.LENGTH_SHORT).show();
                 }
 
                 public void onTransactionResponse(Bundle inResponse) {
-                    Log.d("hundred", inResponse.toString());
                     Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
                 }
 
                 public void networkNotAvailable() {
-                    Log.d("hundred", "network not available");
                     Toast.makeText(PaymentPage.this, "3", Toast.LENGTH_SHORT).show();
                 }
 
                 public void clientAuthenticationFailed(String inErrorMessage) {
-                    Log.d("hundred", "client authentication failed");
                     Toast.makeText(PaymentPage.this, "4", Toast.LENGTH_SHORT).show();
                 }
 
                 public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
-                    Log.d("hundred", "rrorLoadingWebPage");
                     Toast.makeText(PaymentPage.this, "5", Toast.LENGTH_SHORT).show();
                 }
 
                 public void onBackPressedCancelTransaction() {
-                    Log.d("hundred", "BackPressedCancelTransaction");
                     Toast.makeText(PaymentPage.this, "6", Toast.LENGTH_SHORT).show();
                 }
 
                 public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
-                    Log.d("hundred", "TransactionCancel");
                     Toast.makeText(PaymentPage.this, "7", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -1118,7 +1102,6 @@ public class PaymentPage extends AppCompatActivity {
             deliveryCost+=getCrossDeliveryCost(adapterView.getItemAtPosition(i).toString());
 
 
-            Log.d("rounded _",deliveryCost+"");
             totalCost = Float.parseFloat(_TotalCost)+deliveryCost;
 
             if(totalCost>=THRESHOLD_FOR_PERCENT)
@@ -1153,7 +1136,6 @@ public class PaymentPage extends AppCompatActivity {
         public void onCheckedChanged(RadioGroup radioGroup, int i)
         {
 
-            Log.d("ConfigCheck","Mess (inside Radio Button) : "+mess);
 
             v_Summary.setVisibility(VISIBLE);
 
@@ -1166,20 +1148,17 @@ public class PaymentPage extends AppCompatActivity {
                 type_short="EH";
                 OrderType = 1;
 
-                Log.d("ConfigCheck","Inside EH (inside Radio Button)");
 
                 if(mess.equals("A"))
                 {
 
                     if (!messANonDelivery.equals("opened"))
                     {
-                        Log.d("ConfigCheck","Mess A is closed");
                         vPayBtn_NonDelivery.setVisibility(GONE);
                         EatHere.setOnClickListener(serviceNotAvailable);
                     }
                     else
                     {
-                        Log.d("ConfigCheck","Mess A is opened");
                         vPayBtn_NonDelivery.setVisibility(VISIBLE);
                         vPayBtn_EatHere.setVisibility(VISIBLE);
                         EatHere.setOnClickListener(null);
@@ -1190,14 +1169,12 @@ public class PaymentPage extends AppCompatActivity {
                 {
                     if (!messCNonDelivery.equals("opened"))
                     {
-                        Log.d("ConfigCheck","Mess C is closed");
                         vPayBtn_NonDelivery.setVisibility(GONE);
                         EatHere.setOnClickListener(serviceNotAvailable);
 
                     }
                     else
                     {
-                        Log.d("ConfigCheck","Mess C is opened");
                         vPayBtn_NonDelivery.setVisibility(VISIBLE);
                         vPayBtn_EatHere.setVisibility(VISIBLE);
                         EatHere.setOnClickListener(null);
@@ -1208,13 +1185,11 @@ public class PaymentPage extends AppCompatActivity {
                 {
                     if (!messDNonDelivery.equals("opened"))
                     {
-                        Log.d("ConfigCheck","Mess D is closed");
                         vPayBtn_NonDelivery.setVisibility(GONE);
                         EatHere.setOnClickListener(serviceNotAvailable);
                     }
                     else
                     {
-                        Log.d("ConfigCheck","Mess D is opened");
                         vPayBtn_NonDelivery.setVisibility(VISIBLE);
                         vPayBtn_EatHere.setVisibility(VISIBLE);
                         EatHere.setOnClickListener(null);
@@ -1228,13 +1203,11 @@ public class PaymentPage extends AppCompatActivity {
 
                     if (!RCEatHere.equals("opened"))
                     {
-                        Log.d("ConfigCheck","RC is closed");
                         vPayBtn_EatHere.setVisibility(GONE);
                         EatHere.setOnClickListener(serviceNotAvailable);
                     }
                     else
                     {
-                        Log.d("ConfigCheck","RC is opened");
                         vPayBtn_EatHere.setVisibility(VISIBLE);
                         EatHere.setOnClickListener(null);
                     }
@@ -1257,13 +1230,11 @@ public class PaymentPage extends AppCompatActivity {
 
                                     if (!INSEatHere.equals("opened"))
                                     {
-                                        Log.d("ConfigCheck","RC is closed");
                                         vPayBtn_EatHere.setVisibility(GONE);
                                         EatHere.setOnClickListener(serviceNotAvailable);
                                     }
                                     else
                                     {
-                                        Log.d("ConfigCheck","RC is opened");
                                         vPayBtn_EatHere.setVisibility(VISIBLE);
                                         EatHere.setOnClickListener(null);
                                     }
@@ -1285,13 +1256,11 @@ public class PaymentPage extends AppCompatActivity {
                     findViewById(R.id.pay_NPeople).setVisibility(GONE);
                     if (!fkEatHere.equals("opened"))
                     {
-                        Log.d("ConfigCheck","RC is closed");
                         vPayBtn_EatHere.setVisibility(GONE);
                         EatHere.setOnClickListener(serviceNotAvailable);
                     }
                     else
                     {
-                        Log.d("ConfigCheck","RC is opened");
                         vPayBtn_EatHere.setVisibility(VISIBLE);
                         EatHere.setOnClickListener(null);
                     }
@@ -1355,13 +1324,11 @@ public class PaymentPage extends AppCompatActivity {
                     findViewById(R.id.pay_NPeople).setVisibility(GONE);
                     if (!RCTakeAway.equals("opened"))
                     {
-                        Log.d("ConfigCheck","RC is closed");
                         vPayBtn_TakeAway.setVisibility(GONE);
                         TakeAway.setOnClickListener(serviceNotAvailable);
                     }
                     else
                     {
-                        Log.d("ConfigCheck","RC is opened");
                         vPayBtn_TakeAway.setVisibility(VISIBLE);
                         TakeAway.setOnClickListener(null);
                     }
@@ -1383,13 +1350,11 @@ public class PaymentPage extends AppCompatActivity {
 
                                     if (!INSTakeAway.equals("opened"))
                                     {
-                                        Log.d("ConfigCheck","RC is closed");
                                         vPayBtn_TakeAway.setVisibility(GONE);
                                         TakeAway.setOnClickListener(serviceNotAvailable);
                                     }
                                     else
                                     {
-                                        Log.d("ConfigCheck","RC is opened");
                                         vPayBtn_TakeAway.setVisibility(VISIBLE);
                                         TakeAway.setOnClickListener(null);
                                     }
@@ -1409,13 +1374,11 @@ public class PaymentPage extends AppCompatActivity {
                     findViewById(R.id.pay_NPeople).setVisibility(GONE);
                     if (!fkTakeAway.equals("opened"))
                     {
-                        Log.d("ConfigCheck","RC is closed");
                         vPayBtn_TakeAway.setVisibility(GONE);
                         TakeAway.setOnClickListener(serviceNotAvailable);
                     }
                     else
                     {
-                        Log.d("ConfigCheck","RC is opened");
                         vPayBtn_TakeAway.setVisibility(VISIBLE);
                         TakeAway.setOnClickListener(null);
                     }
@@ -1431,9 +1394,7 @@ public class PaymentPage extends AppCompatActivity {
             if(i==R.id.pay_options_Delivery)
             {
                 type_short="DL";
-                Log.d("ConfigConflict","Yo");
                 __FinalCost=Float.toString(getInitialPrice(true));
-               Log.d("ConfigConflict",""+__FinalCost);
                 UpdateItemsView(itemsList,lItemsHolderVerti,false,3);
                 UpdateDeliveryCost(vHostel.getSelectedItem().toString(),true);
 
@@ -1549,12 +1510,10 @@ public class PaymentPage extends AppCompatActivity {
         stringBuilder.append("&pn="+mess+" "+type_short+"&tr=");
         stringBuilder.append("465");
         stringBuilder.append("A&tn="+mess+" "+type_short+"&am=");
-        Log.d("coldmerchant","Final Cost = "+tv_totalcost.getText().toString());
         stringBuilder.append((String) tv_totalcost.getText().toString());
         //stringBuilder.append("1");
         stringBuilder.append("&cu=INR");
 
-        Log.d("hundred","final link for payment : "+stringBuilder.toString());
 
         Uri parse = Uri.parse(stringBuilder.toString());
         List arrayList = new ArrayList();
@@ -1602,11 +1561,9 @@ public class PaymentPage extends AppCompatActivity {
     private boolean isAPIAvailable(String api_pkg_name)
     {
 
-        Log.d("schwifty2","Check if upi is available : "+api_pkg_name);
 
         try
         {
-            Log.d("schwifty2","api available");
             getPackageManager().getPackageInfo(api_pkg_name,PackageManager.GET_ACTIVITIES);
             return true;
         }
@@ -1651,7 +1608,6 @@ public class PaymentPage extends AppCompatActivity {
 
                 TextView tv_tc = v_TOTALCOST.findViewById(R.id.template_bill_price);
 
-                Log.d("schwifty2", "Payment Button Clicked : " + _hostel + "_" + _room + "=" + rnd);
 
                 DatabaseReference trackOrderUID = trackRef.child(_hostel + "_" + _room + "=" + rnd);
 
