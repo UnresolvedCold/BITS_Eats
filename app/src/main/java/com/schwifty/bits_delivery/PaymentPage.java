@@ -38,6 +38,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -255,7 +258,68 @@ public class PaymentPage extends AppCompatActivity {
 
         generateToken();
 
+        AutoFill();
 
+
+    }
+
+    private void AutoFill()
+    {
+        final EditText vRoom =findViewById(R.id.payment_page_RoomNo);
+        EditText vName =findViewById(R.id.pay_Name);
+        EditText vContact = findViewById(R.id.pay_Mob);
+        final Spinner _s = findViewById(R.id.pay_Hostel);
+        final String [] hostels = new String[]
+                {
+                        "AH1","AH2","AH3","AH4","AH5","AH6","AH7","AH8","AH9",
+                        "CH1","CH2","CH3","CH4","CH5","CH6","CH7"
+                };
+
+
+        FirebaseAuth mAuth;
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            try {
+                vName.setText(user.getDisplayName());
+
+                if(TextUtils.isEmpty(user.getPhoneNumber()))
+                vContact.setText(user.getEmail());
+                else vContact.setText(user.getPhoneNumber());
+
+                FirebaseDatabase.getInstance().getReference()
+                        .child("StudentList")
+                        .orderByChild("Email")
+                        .equalTo(user.getEmail())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(dataSnapshot.getChildren().iterator().hasNext())
+                                {
+                                    DataSnapshot s =dataSnapshot.getChildren().iterator().next();
+                                    vRoom.setText(s.child("Room").getValue().toString());
+                                    String hostel = s.child("Hostel").getValue().toString();
+
+                                    for(int i=0;i<hostels.length;i++)
+                                    {
+                                        if(hostel.contains(hostels[i]))_s.setSelection(i);
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void generateToken()
