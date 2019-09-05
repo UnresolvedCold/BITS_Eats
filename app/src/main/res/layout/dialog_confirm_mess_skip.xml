@@ -25,29 +25,38 @@
             android:layout_marginBottom="20dp"
             />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <ImageView
+            <Button
                 android:id="@+id/confirm_cancel"
+                android:text="CANCEL"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:backgroundTint="#BE0505"
                 android:background="@drawable/button_background_2"
-                android:layout_width="40dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_close" />
+                android:src="@drawable/ic_close"
+                android:layout_margin="1dp"/>
 
-            <ImageView
+            <Button
                 android:id="@+id/confirm_corr"
+                android:text="CONFIRM"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#038D03"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
                 android:background="@drawable/button_background_2"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_done"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

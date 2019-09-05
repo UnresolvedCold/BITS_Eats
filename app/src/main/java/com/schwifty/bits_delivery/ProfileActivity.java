@@ -163,6 +163,7 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                 }
                 else
                 {
+                    l.getDialog().dismiss();
                     ((TextView)findViewById(R.id.____Id)).setText(dataSnapshot.child("Id").getValue().toString());
                 }
 
@@ -209,6 +210,10 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                     @Override
                     public void onClick(View view) {
 
+                        final Loader _l = new Loader("",R.layout.loading,ProfileActivity.this,false);
+                        _l.getDialog().show();;
+
+
                         Ion.with(ProfileActivity.this)
                                 .load("https://us-central1-bitsdelivery-6a7e4.cloudfunctions.net/setTodayMessOption?dest="+RawEmail)
                                 .asString()
@@ -250,6 +255,7 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                                         snackbar.show();
 
                                         dialog.dismiss();
+                                        _l.getDialog().dismiss();
 
                                     }
                                 });
