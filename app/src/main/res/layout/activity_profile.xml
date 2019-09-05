@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -58,11 +58,11 @@
         android:id="@+id/_Logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
 
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/ProfileContent"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/Logout"
@@ -81,10 +81,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_below="@+id/ProfileContent"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="10dp"
+
+        >
 
         <Button
             android:id="@+id/Home"
@@ -99,24 +101,82 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/mess_skip_container"
-        android:background="@drawable/button_background_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You can avail this service two times every month"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You must not utilize the mess service for the next day during any meal \n(ie. Breakfast, Lunch and Dinner)"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/___nAttempts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have n attempts left"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:textColor="#000000"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mess_skip_container"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/____Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Id"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mess_skip_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_background_2"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/mess_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Skip Mess Tomorrow"
             android:gravity="center_horizontal"
+            android:text="Skip Mess Tomorrow"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:visibility="visible" />
 
     </LinearLayout>

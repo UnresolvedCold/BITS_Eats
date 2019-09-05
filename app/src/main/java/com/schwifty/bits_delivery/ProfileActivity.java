@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -155,10 +156,16 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
                                 public void onCompleted(Exception e, Response<String> result) {
 
                                     l.getDialog().dismiss();
+                                    ((TextView)findViewById(R.id.____Id)).setText(result.getResult().split("Id :")[1].trim().split("</p>")[0]);
                                 }
                             });
 
                 }
+                else
+                {
+                    ((TextView)findViewById(R.id.____Id)).setText(dataSnapshot.child("Id").getValue().toString());
+                }
+
             }
 
             @Override
@@ -177,168 +184,90 @@ public class ProfileActivity extends AppCompatActivity implements DatePickerDial
         String todayAsString = dateFormat.format(today);
         final String tomorrowAsString = dateFormat.format(tomorrow);
 
-        vMessSkip.setEnabled(false);
+        vMessSkip.setEnabled(true);
 
-        userRef.child("SkipMess").child(Integer.toString(mMonth+1)+"_"+Integer.toString(mYear))
-                .addValueEventListener(new ValueEventListener() {
+        vMessSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final Dialog dialog = new Dialog(ProfileActivity.this);
+                dialog.setContentView(R.layout.dialog_confirm_mess_skip);
+                dialog.setTitle("Enter the passcode");
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setCanceledOnTouchOutside(false);
+
+                View v_ok, v_cancel;
+                TextView vMessege;
+
+                v_ok = dialog.findViewById(R.id.confirm_corr);
+                v_cancel = dialog.findViewById(R.id.confirm_cancel);
+                vMessege = dialog.findViewById(R.id.confirm_text);
+
+                vMessege.setText("Are you sure to skip the mess tomorrow(" + tomorrowAsString + ") ?");
+
+                v_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                    {
+                    public void onClick(View view) {
 
-                        if(dataSnapshot.getChildrenCount()>=2)
-                        {
-
-                            if(flag>0)
-                            {
-                                vMessSkip.setEnabled(true);
-                                //vMessSkip.setVisibility(View.GONE);
-                               /* vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
-                                vMessSkipStatus.setVisibility(View.VISIBLE);*/
-                                // vMessSkip.setText("You've already skipped the mess 2 times this month");
-
-                                vMessSkip.setOnClickListener(new View.OnClickListener() {
+                        Ion.with(ProfileActivity.this)
+                                .load("https://us-central1-bitsdelivery-6a7e4.cloudfunctions.net/setTodayMessOption?dest="+RawEmail)
+                                .asString()
+                                .withResponse()
+                                .setCallback(new FutureCallback<Response<String>>() {
                                     @Override
-                                    public void onClick(View view) {
-                                        Toast.makeText(ProfileActivity.this, "YOur request has been recorded", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                Toast.makeText(ProfileActivity.this, "Your request has been recorded", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                vMessSkip.setEnabled(true);
-                                //vMessSkip.setVisibility(View.GONE);
-                               /* vMessSkipStatus.setText("You've already skipped the mess 2 times this month");
-                                vMessSkipStatus.setVisibility(View.VISIBLE);*/
-                                // vMessSkip.setText("You've already skipped the mess 2 times this month");
+                                    public void onCompleted(Exception e, Response<String> result) {
 
-                                vMessSkip.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Toast.makeText(ProfileActivity.this, "You've already skipped the mess twice this month", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                        String status = result.getResult().split(":")[1].trim();
 
-                                //Toast.makeText(ProfileActivity.this, "Not allowed more than twice", Toast.LENGTH_SHORT).show();
-                                flag=0;
-                            }
-                        }
-                        else
-                        {
-                            vMessSkip.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view)
-                                {
-                                    //dialog to skip mess
+                                        final Snackbar snackbar;
 
-                                    vMessSkip.setEnabled(false);
-                                    Calendar calendar = Calendar.getInstance();
-                                    Date today = calendar.getTime();
-
-                                    calendar.add(Calendar.DAY_OF_YEAR, 1);
-                                    Date tomorrow = calendar.getTime();
-                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-                                    String todayAsString = dateFormat.format(today);
-                                    final String tomorrowAsString = dateFormat.format(tomorrow);
-
-                                    final Dialog dialog = new Dialog(ProfileActivity.this);
-                                    dialog.setContentView(R.layout.dialog_confirm_mess_skip);
-                                    dialog.setTitle("Enter the passcode");
-                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                    dialog.setCanceledOnTouchOutside(false);
-
-                                    View v_ok,v_cancel;
-                                    TextView vMessege;
-
-                                    v_ok = dialog.findViewById(R.id.confirm_corr);
-                                    v_cancel = dialog.findViewById(R.id.confirm_cancel);
-                                    vMessege = dialog.findViewById(R.id.confirm_text);
-
-                                    vMessege.setText("Are you sure to skip the mess tomorrow("+ tomorrowAsString +") ?");
-
-                                    v_ok.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
+                                        if(status.equals("1"))
                                         {
-
-                                            flag++;
-                                            SetSkipMessInFirebase(Integer.parseInt(tomorrowAsString.split("-")[0]),
-                                                    Integer.parseInt(tomorrowAsString.split("-")[1]),
-                                                    Integer.parseInt(tomorrowAsString.split("-")[2])
-                                            );
-
-                                            dialog.dismiss();
+                                            snackbar = Snackbar.make(findViewById(R.id.ProfileContent),"Your response has been successfully recorded.",Snackbar.LENGTH_INDEFINITE);
+                                        }
+                                        else if(status.equals("2"))
+                                        {
+                                            snackbar = Snackbar.make(findViewById(R.id.ProfileContent),"You've already skipped the mess twice this month.",Snackbar.LENGTH_INDEFINITE);
 
                                         }
-                                    });
+                                        else if (status.equals("3"))
+                                        {
+                                            snackbar = Snackbar.make(findViewById(R.id.ProfileContent),"You're already skipping the mess tomorrow.",Snackbar.LENGTH_INDEFINITE);
 
-                                    v_cancel.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            vMessSkip.setEnabled(true);
-                                            dialog.dismiss();
+                                        }else
+                                        {
+                                            snackbar = Snackbar.make(findViewById(R.id.ProfileContent),"Something went wrong, try again.",Snackbar.LENGTH_INDEFINITE);
+
                                         }
-                                    });
 
-                                    dialog.show();
+                                        snackbar.setAction("close",new View.OnClickListener(){
 
-                                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                                    {
-                                        datePickerDialog = new DatePickerDialog(ProfileActivity.this,ProfileActivity.this, mYear, mMonth, mDay);
+                                            @Override
+                                            public void onClick(View view) {
+                                                snackbar.dismiss();
+                                            }
+                                        });
+                                        snackbar.show();
 
-                                        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()+(long)24*60*60*1000);
+                                        dialog.dismiss();
 
-                                        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() +
-                                                (long)(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)-mDay)*24*60*60*1000);
-
-                                        datePickerDialog.show();
                                     }
-                                    else
-                                    {
-
-                                    }*/
-                                }
-                            });
-
-                            vMessSkip.setText("Skip Mess Tomorrow");
-
-                            i=0;
-                            for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                            {
-                                String days = snapshot.child("day").getValue().toString();
-
-                                if(days.equals(tomorrowAsString.split("-")[0]))
-                                {
-                                    i++;
-                                }
-                            }
-
-                            if(i>0)
-                            {
-                                vMessSkip.setEnabled(false);
-                                vMessSkip.setText("You're skipping tomorrow");
-                               // vMessSkip.setVisibility(View.GONE);
-                               // vMessSkipStatus.setText("You're skipping mess tomorrow");
-                               // vMessSkipStatus.setVisibility(View.VISIBLE);
-                            }
-                            else {
-                                vMessSkip.setEnabled(true);
-                                vMessSkip.setText("Skip Mess Tomorrow");
-                                vMessSkip.setVisibility(View.VISIBLE);
-                               /* vMessSkipStatus.setText("You can skip "+(2-i)+" time");
-                                if(i>1)vMessSkipStatus.append("s");
-                                vMessSkipStatus.setVisibility(View.VISIBLE);*/
-                            }
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                });
 
                     }
                 });
+
+                v_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        vMessSkip.setEnabled(true);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }});
+
     }
 
     @Override
